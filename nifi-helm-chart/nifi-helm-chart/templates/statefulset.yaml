@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "nifi.fullname" . }}
+spec:
+  serviceName: {{ include "nifi.fullname" . }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "nifi.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "nifi.name" . }}
+    spec:
+      containers:
+        - name: nifi
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: flow-volume
+              mountPath: "{{ .Values.configFlow.mountPath }}"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    if [ -f {{ .Values.configFlow.mountPath }}/basic-flow.json ]; then
+                      gzip < {{ .Values.configFlow.mountPath }}/basic-flow.json > /opt/nifi/data/flow.xml.gz
+                    fi
+      volumes:
+        - name: flow-volume
+          configMap:
+            name: {{ .Values.configFlow.configMapName }}
+            items:
+              - key: basic-flow.json
+                path: basic-flow.json

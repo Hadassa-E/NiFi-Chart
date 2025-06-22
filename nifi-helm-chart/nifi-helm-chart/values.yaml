@@ -1,0 +1,33 @@
+replicaCount: 3
+
+image:
+  repository: apache/nifi
+  tag: "2.4.0"
+  pullPolicy: IfNotPresent
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+auth:
+  singleUser:
+    username: "admin"
+    password: "changemechangeme"
+
+configFlow:
+  enabled: true
+  configMapName: basic-flow-json
+  mountPath: /opt/nifi/flow
+
+ingress:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 1
+    memory: 2Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi

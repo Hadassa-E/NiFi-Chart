@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: basic-flow-json
+data:
+  basic-flow.json: |
+    {
+      "example": "Insert your actual NiFi JSON flow definition here"
+    }
