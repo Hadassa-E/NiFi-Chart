@@ -5,7 +5,8 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: 8080
+    - name: https
+      port: {{ .Values.service.port }}
+      targetPort: 8443
   selector:
     app: {{ include "nifi.name" . }}
