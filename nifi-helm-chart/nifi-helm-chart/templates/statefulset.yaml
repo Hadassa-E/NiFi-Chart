@@ -22,6 +22,17 @@ spec:
           volumeMounts:
             - name: flow-volume
               mountPath: "{{ .Values.configFlow.mountPath }}"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    if [ -f {{ .Values.configFlow.mountPath }}/basic-flow.json ]; then
+                      gzip < {{ .Values.configFlow.mountPath }}/basic-flow.json > /opt/nifi/nifi-current/conf/flow.json.gz
+                    fi
+
           # lifecycle:
           #   postStart:
           #     exec:
