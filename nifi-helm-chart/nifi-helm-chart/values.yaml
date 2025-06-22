@@ -38,6 +38,8 @@ service:
 
 configFlow:
   enabled: true
+  configMapName: basic-flow-json
+  mountPath: /opt/nifi/flow
   flowJson: |-
     {
       "rootGroup": {}
