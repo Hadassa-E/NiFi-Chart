@@ -1,9 +1,9 @@
+{{- if .Values.configFlow.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: basic-flow-json
+  name: {{ .Values.configFlow.configMapName }}
 data:
-  basic-flow.json: |
-    {
-      "example": "Insert your actual NiFi JSON flow definition here"
-    }
+  basic-flow.json: |-
+{{ .Values.configFlow.flowJson | indent 4 }}
+{{- end }}

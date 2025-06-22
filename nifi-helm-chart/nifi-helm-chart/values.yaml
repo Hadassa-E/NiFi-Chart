@@ -35,3 +35,10 @@ resources:
 service:
   type: ClusterIP
   port: 8080
+
+configFlow:
+  enabled: true
+  flowJson: |-
+    {
+      "rootGroup": {}
+    }
