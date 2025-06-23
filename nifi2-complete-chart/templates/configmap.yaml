@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  nifi.yaml: |
+    nifi:
+      web:
+        http:
+          host: 0.0.0.0
+          port: 8080
+      registry:
+        enabled: false
+      stateManagement:
+        provider: local-provider
+  bootstrap.yaml: |
+    nifi:
+      bootstrap:
+        autoStart: true
+  authorizers.yaml: |
+    authorizers:
+      default:
+        identifier: file-provider
+        class: org.apache.nifi.authorization.FileAuthorizer
+        properties:
+          usersFile: "./conf/users.xml"
+          authorizationsFile: "./conf/authorizations.xml"
