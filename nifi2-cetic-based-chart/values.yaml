@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: apache/nifi
+  tag: "2.4.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+persistence:
+  enabled: true
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClass: "standard"
+
+adminUser:
+  username: admin
+  password: admin123

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nifi2
+description: A Helm chart for Apache NiFi 2.4.0 (מבוסס cetic)
+type: application
+version: 0.2.0
+appVersion: "2.4.0"
